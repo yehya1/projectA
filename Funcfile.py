@@ -1,6 +1,13 @@
 from tkinter import *
 from tkinter import messagebox
-
+def cal_travel_time(x1,y1,x2,y2):
+    import math
+    speed=30000
+    a=x2-x1
+    b=y2-y1
+    distance=math.sqrt(a*a+b*b)
+    time=distance/speed
+    return time
 def Shibuts():
     #messagebox.showinfo(title="ok", message="shibuts is ok")
     print("Hello")
