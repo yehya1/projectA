@@ -38,7 +38,7 @@ def checkUser():
 
 
 #form design
-cal_travel_time(31.3238353,35.0711483,31.3856301,34.7637722)
+Funcfile.cal_travel_time(31.3238353,35.0711483,31.3856301,34.7637722)
 root=Tk()
 UN=StringVar()
 UP=StringVar()
