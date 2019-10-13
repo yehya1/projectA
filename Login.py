@@ -1,4 +1,5 @@
 from tkinter import *
+import Funcfile
 from technician import printf
 import pandas as pd
 from pandas import ExcelWriter
@@ -8,22 +9,20 @@ from tkinter import messagebox
 def connectoin(name,password):
     df = pd.read_excel('UsersList.xlsx','users')
     for i in df.index:
-        if df['UserName'][i] == name:
+        if df['UserName'][i] == name :
             if str(df['password'][i]) == password:
                 return True
             else:
                 return False
     return False
-def admin_screen():
-    return 0
 #checking the user details , printing a message according to the function result
 def checkUser():
     userN=UN.get()
     userP=UP.get()
-    if userN=="admin":
-        if userP =="foxfox":
-            messagebox.showinfo(title="hello admin", message="welcome ya boss")
-            admin_screen()
+    if userN=="*":
+        if userP =="":
+            root.destroy()
+            Funcfile.load_admin_screen()
         else:
             messagebox.showinfo(title="hello admin", message="Login failed: Invalid password")
     else:
@@ -31,8 +30,8 @@ def checkUser():
         data=connectoin(userN,userP)
         #print(data)
         if data==True:
-            printf()
-            #messagebox.showinfo(title="hello technician", message="welcome , your login succesful")
+            root.destroy()
+            Funcfile.load_tech_screen()
         else:
             messagebox.showinfo(title="hello user", message="Login failed: Invalid username or password")
 
@@ -54,7 +53,7 @@ password1=Label(form,text="password:",font=('Times New Roman',20),bg='white',bd=
 name2=Entry(form,textvariable=UN).grid(row=1,column=2)
 password2=Entry(form,textvariable=UP,show=("*")).grid(row=2,column=2)
 login=Button(root,text="Login",font=('Times New Roman',14),bg='green',fg='white',padx=10,command=checkUser)
-login.place(relx = 0.5, rely = 0.75, anchor = CENTER)
+place = login.place(relx=0.5, rely=0.75, anchor=CENTER)
 canvas = Canvas(root, width = 208, height = 204)
 canvas.place(relx = 0.5, rely = 0.3, anchor = CENTER)
 img = PhotoImage(file="images.png")
