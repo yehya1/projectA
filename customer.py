@@ -15,7 +15,7 @@ def fillcombobox():
     return lst
 def callbackFunc(event):
     import pandas as pd
-    xl=pd.read_excel("IssueTime.xlsx","IssueTime")
+    xl=pd.read_csv("IssueTime.csv","IssueTime")
     lst1=[]
     for i in range(len(xl['discription'])):
         if compo1.get()==xl['product'][i]:
