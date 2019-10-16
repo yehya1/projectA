@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-
+import pandas as pd
 
 
 def fillcombobox():
@@ -13,15 +13,21 @@ def fillcombobox():
         if not(xl['product'][i] in lst):
             lst.append(xl['product'][i])
     return lst
-def callbackFunc(event):
+def callback(events):
     import pandas as pd
-    xl=pd.read_csv("IssueTime.csv","IssueTime")
+    xl=pd.read_excel("IssueTime.xlsx","IssueTime")
     lst1=[]
     for i in range(len(xl['discription'])):
         if compo1.get()==xl['product'][i]:
             lst1.append(xl['discription'][i])
+    tk.Label(app, text="issue:").grid(column=0, row=2, padx=x, pady=y)
+    global compo2
+    compo2 = ttk.Combobox(app, values=lst1)
+    #compo2 = ttk.Combobox(app, values=[1, 2, 3, 4, 5, 6])
+    compo2.update()
+    compo2.current(0)
+    compo2.grid(column=1, row=2, padx=x, pady=y)
     print(lst1)
-    return lst1
 def click():
     str=name.get(),',',compo1.get(),',',compo2.get(),',',place.get()
     tk.Label(app,text=str,).grid(column=1,row=4)
@@ -42,16 +48,13 @@ tk.Label(app,text = "product name:").grid(column=0, row=1,padx=x,pady=y)
 lst=fillcombobox()
 compo1=ttk.Combobox(app,values=lst)
 compo1.current(0)
-compo1.bind("<<ComboboxSelected>>", callbackFunc)
+compo1.bind("<<ComboboxSelected>>", callback)
 compo1.grid(column=1,row=1,padx=x,pady=y)
 
 
-tk.Label(app,text = "issue:").grid(column=0, row=2,padx=x,pady=y)
-lst1=callbackFunc()
-compo2=ttk.Combobox(app,values=lst1)
-app.update()
-compo2.current(0)
-compo2.grid(column=1,row=2,padx=x,pady=y)
+
+
+
 
 tk.Label(app,text = "palce:").grid(column=0, row=3,padx=x,pady=y)
 tk.Entry(app,textvariable=place).grid(column=1,row=3,padx=x,pady=y)
