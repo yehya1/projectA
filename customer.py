@@ -3,6 +3,18 @@ from tkinter import ttk
 from tkinter import *
 import pandas as pd
 
+#reading single line from csv file
+def readcsv(num):
+    count=0
+    cols=pd.read_csv("IssueLocation.csv")
+    c1=cols[num:num+1]
+    #d1=list(c1)
+    d2=c1.values[0]
+    print(d2)
+    print(d2[0])
+    print(c1)
+    c2=cols[num-1:num]
+    print(c2)
 
 def fillcombobox():
     import pandas as pd
@@ -31,6 +43,7 @@ def callback(events):
 def click():
     str=name.get(),',',compo1.get(),',',compo2.get(),',',place.get()
     tk.Label(app,text=str,).grid(column=1,row=4)
+readcsv(3)
 app = tk.Tk()
 x=10
 y=10
