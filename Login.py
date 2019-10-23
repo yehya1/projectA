@@ -7,7 +7,7 @@ from pandas import ExcelFile
 from tkinter import messagebox
 
 #reading and checking username and password from excel file
-def connectoin(name,password):
+def connection(name,password):
     df = pd.read_excel('UsersList.xlsx','users')
     for i in df.index:
         if df['UserName'][i] == name :
@@ -23,12 +23,15 @@ def checkUser():
     if userN=="*":
         if userP =="":
             root.destroy()
-            Funcfile.load_admin_screen()
+            #Funcfile.IssueScreen()
+            screen=Funcfile.AdminScreen()
+            #screen.mainloop()
+
         else:
             messagebox.showinfo(title="hello admin", message="Login failed: Invalid password")
     else:
         #call connection function to verify if the user & the password saved in the system database
-        data=connectoin(userN,userP)
+        data=connection(userN,userP)
         #print(data)
         if data==True:
             root.destroy()
