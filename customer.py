@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 import pandas as pd
-
+import time
+from pandas import DataFrame
 #reading single line from csv file
 def readcsv(num):
     count=0
@@ -34,16 +35,30 @@ def callback(events):
             lst1.append(xl['discription'][i])
     tk.Label(app, text="issue:").grid(column=0, row=2, padx=x, pady=y)
     global compo2
-    compo2 = ttk.Combobox(app, values=lst1)
+    compo2 = ttk.Combobox(app,textvariable=issue, values=lst1)
     #compo2 = ttk.Combobox(app, values=[1, 2, 3, 4, 5, 6])
     compo2.update()
     compo2.current(0)
     compo2.grid(column=1, row=2, padx=x, pady=y)
     print(lst1)
 def click():
-    str=name.get(),',',compo1.get(),',',compo2.get(),',',place.get()
-    tk.Label(app,text=str,).grid(column=1,row=4)
-readcsv(3)
+
+    lstporolem=[]
+    lstporolem.append(name.get())
+    lstporolem.append(product.get())
+    lstporolem.append(issue.get())
+    lstporolem.append(place.get())
+    lstporolem.append(time.asctime())
+    customerIssue={"name":[lstporolem[0]],
+                   "product":[lstporolem[1]],
+                   "issue":[lstporolem[2]],
+                   "place":[lstporolem[3]],
+                   "time":[lstporolem[4]]}
+    df=pd.DataFrame(customerIssue,columns=["name","product","issue","place","time"])
+    print(df)
+    df.to_csv('customerissue.csv',header=False, mode='a',index=False)
+global lst1
+
 app = tk.Tk()
 x=10
 y=10
@@ -51,22 +66,21 @@ app.geometry('320x250')
 app.title("customer")
 
 name=tk.StringVar()
-product=tk.IntVar()
-issue=tk.IntVar()
+product=tk.StringVar()
+issue=tk.StringVar()
 place=tk.StringVar()
 
 tk.Label(app,text = "name custmer:").grid(column=0,row=0,padx=x,pady=y)
 tk.Entry(app,textvariable=name).grid(column=1,row=0,padx=x,pady=y)
+
+
+
 tk.Label(app,text = "product name:").grid(column=0, row=1,padx=x,pady=y)
 lst=fillcombobox()
-compo1=ttk.Combobox(app,values=lst)
+compo1=ttk.Combobox(app,textvariable=product,values=lst)
 compo1.current(0)
 compo1.bind("<<ComboboxSelected>>", callback)
 compo1.grid(column=1,row=1,padx=x,pady=y)
-
-
-
-
 
 
 tk.Label(app,text = "palce:").grid(column=0, row=3,padx=x,pady=y)
