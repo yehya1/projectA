@@ -12,7 +12,7 @@ def readcsv(num):
 
 def fillcombobox():
     import pandas as pd
-    xl=pd.read_excel("IssueTime.xlsx","IssueTime")
+    xl=pd.read_csv("IssueTime.csv")
     lst=[]
     for i in range(1,len(xl['product'])):
         if not(xl['product'][i] in lst):
@@ -20,7 +20,7 @@ def fillcombobox():
     return lst
 def callback(events):
     import pandas as pd
-    xl=pd.read_excel("IssueTime.xlsx","IssueTime")
+    xl=pd.read_csv("IssueTime.csv")
     lst1=[]
     for i in range(len(xl['discription'])):
         if compo1.get()==xl['product'][i]:
