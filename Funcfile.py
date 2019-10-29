@@ -71,7 +71,7 @@ class AdminScreen(object):
     def addIssue(self):
         self.root.destroy()
         #app.mainloop()
-        issue  = IssueScreen()
+        IssueScreen()
 
 
 class IssueScreen:
@@ -106,10 +106,11 @@ class IssueScreen:
                          "discription": self.discription.get(),
                          "time": self.time.get(),
                          "IssueLevel":self.IssueLevel.get()}
+        print(Issuewrite)
         df = pd.DataFrame([Issuewrite])
         df.to_csv('IssueTime.csv', mode='a', index=False,header=0)
-
-
+        self.app.destroy()
+        AdminScreen()
 
 
 def load_tech_screen():
